@@ -8,12 +8,23 @@ class Linked_list():
 	@abstractmethod
 	def __add_node(self,**kwargs):
 		pass
+
 	@abstractmethod
 	def __delete_node(self,**kwargs):
 		pass
+
+	@abstractmethod
 	def print_list(self,**kwargs):
 		pass
 	
+	def initialize_list(self,end_string='None'):
+		print("This will add nodes to the linked list, enter the node values, to stop type : ",end_string)
+		while True:
+			input_val=input("Enter value \n")
+			if input_val==end_string:
+				break
+			self._add_node(value=input_val)
+			
 
 class Node():
 	def __init__(self,**kwargs):
@@ -104,12 +115,18 @@ class Single_linked_list(Linked_list):
 		current_node=self.head
 		while current_node:
 			print (current_node.value,end='',flush=True)
-			if not current_node==self.tail:
+			if  current_node.forward:
 				print("->",end='',flush=True)
 			current_node=current_node.forward
 		print ("\n")
 
-class double_linked_list():
+	def initialize_linked_list(self,end_string='None'):
+		print ("Enter the elements of the linked list, To stop entering type : ",end_string)
+		while True:
+			input_val=input("Enter value \n")
+			self._add_node(input_val)
+		
+class double_linked_list(Linked_list):
 	def __init__(self):
 		self.head=None
 		self.tail=None
@@ -178,7 +195,7 @@ class double_linked_list():
 		current_node=self.head
 		while current_node:
 			print (current_node.value,end='',flush=True)
-			if not current_node==self.tail:
+			if  current_node.forward:
 				print("->",end='',flush=True)
 			current_node=current_node.forward
 		print ("\n")
@@ -187,12 +204,7 @@ class double_linked_list():
 if __name__=='__main__':
 	print ("Enter the value for new node, enter None to exit")
 	new_list=double_linked_list()
-	while True:
-		input_val=input("Enter value \n")
-		if input_val=='None':
-			break
-		else :
-			new_list._add_node(value=input_val)
+	new_list.initialize_list()
 	new_list.print_list()
 	print ("Enter the node that you want to be deleted")
 	input_val=input("Enter value of the node \n")
